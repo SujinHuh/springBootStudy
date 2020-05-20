@@ -1,6 +1,5 @@
-package springboot.study;
+package springboot.study.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,17 +17,21 @@ import java.util.List;
 @RequestMapping("/api")
 public class MainController {
 
-    @Autowired
-    private BlogService blogService;
 
-    @Autowired
-    private MovieService movieService;
+    private final BlogService blogService;
 
-    @Autowired
-    private EncyclopediaService encyclopediaService;
+    private final MovieService movieService;
+
+    private final EncyclopediaService encyclopediaService;
+
+    public MainController(BlogService blogService, MovieService movieService, EncyclopediaService encyclopediaService) {
+        this.blogService = blogService;
+        this.movieService = movieService;
+        this.encyclopediaService = encyclopediaService;
+    }
 
     @GetMapping("/blog")
-    public List<BlogDto> searchBlogByQuery(@RequestParam(name = "query") String query){
+    public List<BlogDto> searchBlogByQuery(@RequestParam(name = "query") String query) {
 
         return blogService.findByQuery(query);
     }

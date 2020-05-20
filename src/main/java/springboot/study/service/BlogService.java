@@ -32,16 +32,5 @@ public class BlogService {
 
         return list;
 
-        /*
-        return blogRepository.findByQuery(query).getItems().stream()
-                .map(b -> BlogDTO.builder()
-                        .title(b.title)
-                        .link(b.link)
-                        .description(b.description)
-                        .postdate(b.postdate)
-                        .blogger(b.bloggername)
-                        .build()
-                ).collect(Collectors.toList());
-        */
     }
 }
