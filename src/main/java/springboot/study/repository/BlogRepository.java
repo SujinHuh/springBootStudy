@@ -22,7 +22,7 @@ public class BlogRepository {
 
     public ResponseBlog findByQuery(String query) {
 
-        //TODO: 코드 리팩토링
+        //코드 리팩토링
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("X-Naver-Client-Id", naverOpenApiClientId);
