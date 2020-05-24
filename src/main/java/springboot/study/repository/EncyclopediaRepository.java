@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
+import springboot.study.config.NaverProperties;
 import springboot.study.respons.ResponseEncyclopedia;
 import springboot.study.respons.ResponseMovie;
 
@@ -16,21 +17,17 @@ import springboot.study.respons.ResponseMovie;
 @RequiredArgsConstructor
 public class EncyclopediaRepository {
 
-    @Value("${naver.openapi.clientId}")
-    private String naverOpenApiClientId;
-
-    @Value("${naver.openapi.clientSecret}")
-    private String naverOpenApiClientSecret;
+    private final NaverProperties naverProperties;
 
     private final RestTemplate restTemplate;
 
     public ResponseEncyclopedia findByQuery(String query) {
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("X-Naver-Client-Id", naverOpenApiClientId);
-        httpHeaders.add("X-Naver-Client-Secret", naverOpenApiClientSecret);
+        httpHeaders.add("X-Naver-Client-Id", naverProperties.getClientId());
+        httpHeaders.add("X-Naver-Client-Secret", naverProperties.getClientSecret());
 
-        String url ="https://openapi.naver.com/v1/search/encyc.json"+ "?query=" + query;
+        String url =naverProperties.getEncy()+ "?query=" + query;
 
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(httpHeaders), ResponseEncyclopedia.class).getBody();
 

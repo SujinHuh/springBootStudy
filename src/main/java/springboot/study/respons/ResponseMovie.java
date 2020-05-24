@@ -14,12 +14,12 @@ public class ResponseMovie {
 
     @Getter
     public static class Item {
-        String title;
-        String link;
-        String actor;
-        String director;
-        float userRating;
-        String subtitle;
+        private String title;
+        private String link;
+        private String actor;
+        private String director;
+        private float userRating;
+        private String subtitle;
 //        Data pubDate;
 
     }

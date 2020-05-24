@@ -13,13 +13,12 @@ public class ResponseBlog {
     private Integer total;
     private List<naverDocument> items;
 
-    @Getter
-    @Setter
-    public static class naverDocument{
-        String title;
-        String link;
-        String bloggername;
-        String description;
-        String postdate;
+    @Data
+    public static class naverDocument {
+        private String title;
+        private String link;
+        private String bloggername;
+        private String description;
+        private String postdate;
     }
 }
