@@ -1,6 +1,7 @@
 package springboot.study.repository;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +13,7 @@ import springboot.study.respons.ResponseEncyclopedia;
 import springboot.study.respons.ResponseMovie;
 
 @Repository
+@RequiredArgsConstructor
 public class EncyclopediaRepository {
 
     @Value("${naver.openapi.clientId}")
@@ -20,9 +22,10 @@ public class EncyclopediaRepository {
     @Value("${naver.openapi.clientSecret}")
     private String naverOpenApiClientSecret;
 
+    private final RestTemplate restTemplate;
+
     public ResponseEncyclopedia findByQuery(String query) {
 
-        RestTemplate restTemplate = new RestTemplate();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("X-Naver-Client-Id", naverOpenApiClientId);
         httpHeaders.add("X-Naver-Client-Secret", naverOpenApiClientSecret);

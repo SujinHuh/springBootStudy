@@ -1,5 +1,6 @@
 package springboot.study.repository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -9,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import springboot.study.respons.ResponseMovie;
 
 @Repository
+@RequiredArgsConstructor
 public class  MovieRepository {
 
     @Value("${naver.openapi.clientId}")
@@ -17,10 +19,11 @@ public class  MovieRepository {
     @Value("${naver.openapi.clientSecret}")
     private String naverOpenApiClientSecret;
 
+    private final RestTemplate restTemplate;
+
+
     public ResponseMovie findByQuery(String query) {
 
-        //TODO: 코드 리팩토링
-        RestTemplate restTemplate = new RestTemplate();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("X-Naver-Client-Id", naverOpenApiClientId);
         httpHeaders.add("X-Naver-Client-Secret", naverOpenApiClientSecret);
