@@ -31,15 +31,17 @@ public class MainController {
     }
 
     @GetMapping("/blog")
-    public List<BlogDto> searchBlogByQuery(@RequestParam(name = "query") String query) {
-
-        return blogService.findByQuery(query);
+    public List<BlogDto> searchBlogByQuery(){
+        return blogService.findByQuery("강남");
     }
 
     @GetMapping("/movie")
     public List<MovieDto> searchMovieByQuery() {
         return movieService.findByQuery("해리포터");
     }
+
+    // 영화 평점순 정렬
+
 
     @GetMapping("/Encyclopedia")
     public List<EncyclopediaDto> searchNewsByQuery() {

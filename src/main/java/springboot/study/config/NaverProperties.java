@@ -14,7 +14,7 @@ public class NaverProperties {
 
     private String bolgUrl;
     private String movieUrl;
-    private String ency;
+    private String encyUrl;
     private String clientId;
     private String clientSecret;
 
