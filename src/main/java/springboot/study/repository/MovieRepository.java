@@ -28,4 +28,5 @@ public class  MovieRepository {
 
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(httpHeaders), ResponseMovie.class).getBody();
     }
+
 }

@@ -3,7 +3,6 @@ package springboot.study.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import springboot.study.dto.EncyclopediaDto;
-import springboot.study.dto.MovieDto;
 import springboot.study.repository.EncyclopediaRepository;
 
 import java.util.List;

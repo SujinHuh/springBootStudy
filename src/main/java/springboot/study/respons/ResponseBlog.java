@@ -13,7 +13,7 @@ public class ResponseBlog {
     private Integer total;
     private List<naverDocument> items;
 
-    @Data
+    @Getter
     public static class naverDocument {
         private String title;
         private String link;

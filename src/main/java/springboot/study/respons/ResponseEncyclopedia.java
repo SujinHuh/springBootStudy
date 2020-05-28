@@ -21,7 +21,6 @@ public class ResponseEncyclopedia {
         private Integer total;
         // LocalDateTime?? --> datetime
 
-
     }
 
 

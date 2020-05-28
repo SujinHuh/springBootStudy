@@ -1,18 +1,22 @@
 package springboot.study.respons;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResponseMovie {
 
     private List<Item> items;
 
     @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Item {
         private String title;
         private String link;
