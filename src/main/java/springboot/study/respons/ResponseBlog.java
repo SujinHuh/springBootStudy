@@ -14,12 +14,11 @@ public class ResponseBlog {
     private List<naverDocument> items;
 
     @Getter
-    @Setter
-    public static class naverDocument{
-        String title;
-        String link;
-        String bloggername;
-        String description;
-        String postdate;
+    public static class naverDocument {
+        private String title;
+        private String link;
+        private String bloggername;
+        private String description;
+        private String postdate;
     }
 }

@@ -13,14 +13,13 @@ public class ResponseEncyclopedia {
 
     @Getter
     public static class Item {
-        String title;
-        String link;
-        String description;
-        Integer display;
-        Integer start;
-        Integer total;
+        private String title;
+        private String link;
+        private String description;
+        private Integer display;
+        private Integer start;
+        private Integer total;
         // LocalDateTime?? --> datetime
-
 
     }
 
