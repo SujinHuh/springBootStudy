@@ -17,3 +17,5 @@
  - local profile 실행
  - 검색 API를 호출하는 RestTemplate을  refactoring / 제네릭 사용     
  - 영화 검색 평점순 Sort TDD 작성 / 오픈 api 사용 X , Mock 객체 사용
+
+## 3주차 과제
