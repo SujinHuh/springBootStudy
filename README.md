@@ -19,3 +19,4 @@
  - 영화 검색 평점순 Sort TDD 작성 / 오픈 api 사용 X , Mock 객체 사용
 
 ## 3주차 과제
+ - 영화 검색 평점순 Sort TDD 작성 / 오픈 api 사용 X , Mock 객체 사용
