@@ -1,15 +1,12 @@
 package springboot.study.service;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.DisplayName;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import springboot.study.dto.MovieDto;
 import springboot.study.repository.MovieRepository;
 import springboot.study.respons.ResponseMovie;
 
@@ -17,67 +14,44 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
-@AutoConfigureMockMvc
 
-public class MovieServiceTest {
+@ExtendWith(MockitoExtension.class) //선언하면, @Mock 어노테이션 사용 가능
+class MovieServiceTest {
 
-  @Autowired
-  MovieService movieService;
-
-  @Autowired
-  MockMvc mockMvc;
-
-  @MockBean
-  private MovieRepository movieRepository;
-
-  @BeforeEach
-  void getMovieList() {
-
-    ResponseMovie.Item.builder().title("MovieOne").actor("ActorOne").userRating(8.7f).build();
-
-  }
-
+  private MovieService movieService;
 
   @Test
-  @DisplayName("평점순으로정렬 확인")
-  public void movie_ratings_sort() throws Exception {
+  @DisplayName("평점 순으로 정렬이 잘 되는지")
+  void arranged_well_in_user_ratings() {
 
-      //given
-
-    ResponseMovie.Item responseMovieOne = ResponseMovie.Item.builder()
-            .title("MovieOne")
-            .director("One")
-            .userRating(8.2f)
-            .build();
-
-
-    ResponseMovie.Item responseMovieTwo = ResponseMovie.Item.builder()
-            .title("MovieTwo")
-            .director("Two")
-            .userRating(9.2f)
-            .build();
-
-
-    ResponseMovie.Item responseMovieThree = ResponseMovie.Item.builder()
-            .title("Movie3")
-            .director("Three")
-            .userRating(3.2f)
-            .build();
-
-    List<ResponseMovie.Item> items = Arrays.asList(responseMovieOne,responseMovieTwo,responseMovieThree);
-
-    ResponseMovie.builder().items(items).build();
-
-    MovieRepository movieRepository = mockMvc.perform();
+    //given
+    float expectedUserRanking = 9.3f;
+    MovieRepository movieRepository = Mockito.mock(MovieRepository.class);
+    Mockito.when(movieRepository.findByQuery(any())).thenReturn(getStubMovieList()); //Mock 객체의 findByQuary 메서드 실행 결과 반환 "가짜데이터"
+    movieService = new MovieService(movieRepository); // Mock객체를 MovieService 주입
 
     //when
+    List<MovieDto> actualList = movieService.findByQuery("쿼리"); // 테스트 실행
 
-      //then
-    assertEquals();
+    //then
+    assertEquals(expectedUserRanking, actualList.stream().findFirst().get().getUserRating());
 
   }
 
-  
+  private ResponseMovie getStubMovieList() {
+
+    List<ResponseMovie.Item> items = Arrays.asList(
+            ResponseMovie.Item.builder().title("<b>MovieOne</b> 제목").actor("배우1").userRating(9.3f).build(),
+            ResponseMovie.Item.builder().title("<b>MovieTwo</b> 제목").actor("배우2").userRating(9.7f).build(),
+            ResponseMovie.Item.builder().title("<b>MovieThree</b> 제목").actor("배우3").userRating(7.5f).build()
+            ResponseMovie.Item.builder().title("<b>MovieFour</b> 제목").actor("배우4").userRating(7.5f).build()
+    );
+
+    return ResponseMovie.builder()
+            .items(items)
+            .build();
+  }
 }
