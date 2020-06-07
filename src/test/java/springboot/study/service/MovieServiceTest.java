@@ -18,40 +18,53 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 
-@ExtendWith(MockitoExtension.class) //선언하면, @Mock 어노테이션 사용 가능
+@ExtendWith(MockitoExtension.class)
+        //선언하면, @Mock 어노테이션 사용 가능
 class MovieServiceTest {
 
-  private MovieService movieService;
+    private MovieService movieService;
 
-  @Test
-  @DisplayName("평점 순으로 정렬이 잘 되는지")
-  void arranged_well_in_user_ratings() {
+    @Test
+    @DisplayName("평점 순으로 정렬이 잘 되는지")
+    void arranged_well_in_user_ratings() {
 
-    //given
-    float expectedUserRanking = 9.3f;
-    MovieRepository movieRepository = Mockito.mock(MovieRepository.class);
-    Mockito.when(movieRepository.findByQuery(any())).thenReturn(getStubMovieList()); //Mock 객체의 findByQuary 메서드 실행 결과 반환 "가짜데이터"
-    movieService = new MovieService(movieRepository); // Mock객체를 MovieService 주입
+        //given
+        float expectedUserRanking = 9.3f;
+        MovieRepository movieRepository = Mockito.mock(MovieRepository.class);
+        Mockito.when(movieRepository.findByQuery(any())).thenReturn(getStubMovieList()); //Mock 객체의 findByQuary 메서드 실행 결과 반환 "가짜데이터"
+        movieService = new MovieService(movieRepository); // Mock객체를 MovieService 주입
 
-    //when
-    List<MovieDto> actualList = movieService.findByQuery("쿼리"); // 테스트 실행
+        //when
+        List<MovieDto> actualList = movieService.findByQuery("쿼리"); // 테스트 실행
 
-    //then
-    assertEquals(expectedUserRanking, actualList.stream().findFirst().get().getUserRating());
+        //then
+        assertEquals(expectedUserRanking, actualList.stream().findFirst().get().getUserRating());
 
-  }
+    }
 
-  private ResponseMovie getStubMovieList() {
+    private ResponseMovie getStubMovieList() {
 
-    List<ResponseMovie.Item> items = Arrays.asList(
-            ResponseMovie.Item.builder().title("<b>MovieOne</b> 제목").actor("배우1").userRating(9.3f).build(),
-            ResponseMovie.Item.builder().title("<b>MovieTwo</b> 제목").actor("배우2").userRating(9.7f).build(),
-            ResponseMovie.Item.builder().title("<b>MovieThree</b> 제목").actor("배우3").userRating(7.5f).build()
-            ResponseMovie.Item.builder().title("<b>MovieFour</b> 제목").actor("배우4").userRating(7.5f).build()
-    );
+        List<ResponseMovie.Item> items = Arrays.asList(
+                ResponseMovie.Item.builder().title("<b>MovieOne</b> 제목").actor("배우1").userRating(9.3f).build(),
+                ResponseMovie.Item.builder().title("<b>MovieTwo</b> 제목").actor("배우2").userRating(9.7f).build(),
+                ResponseMovie.Item.builder().title("<b>MovieThree</b> 제목").actor("배우3").userRating(7.5f).build()
+                ResponseMovie.Item.builder().title("<b>MovieFour</b> 제목").actor("배우4").userRating(7.5f).build()
+        );
 
-    return ResponseMovie.builder()
-            .items(items)
-            .build();
-  }
+        return ResponseMovie.builder()
+                .items(items)
+                .build();
+    }
+
+
+    @Test
+    @DisplayName("태그삭제")
+    void tag_remove() {
+    }
+
+
+    @Test
+    @DisplayName("평점이 0인 데이터 제외 확인")
+    void ratings_exclude() {
+    }
 }
